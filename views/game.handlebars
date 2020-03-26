@@ -1,1 +1,18 @@
 <div>Successfully Authenticated and connected to web server! User: 01</div>
+
+<div id="game-update-box"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+
+    var socket = io.connect('http://localhost:3000');
+    socket.on('connect', function (data) {
+        var sessionid = socket.id;
+        socket.emit('join', { sessionid });
+    });
+
+    socket.on('messages', function (data) {
+        jQuery('#game-update-box').append(data + '<br>');
+    });
+</script>

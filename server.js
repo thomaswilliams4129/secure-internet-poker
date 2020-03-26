@@ -17,7 +17,6 @@ const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 
 const { check, validationResult } = require('express-validator');
-
 const RateLimiter = require('./middleware/rate-limiter').apiLimiter;
 const CookieSettings = require('./middleware/session');
 
@@ -48,10 +47,24 @@ app.use((req, res, next) => {
     next();
 });
 
-// Routes
-require('./routes.js')(app, passport, check, validationResult, flash); // load our routes and pass in our app and fully configured passport
-
 // Start server
-app.listen(3000, () => {
+const server = app.listen(3000, () => {
     console.log('Listening on localhost:3000');
 });
+const io = require('socket.io')(server);
+
+let connectCounter = 0;
+
+io.on('connect', function() {
+    connectCounter++;
+    console.log(connectCounter);
+});
+io.on('disconnect', function() {
+    connectCounter--;
+    console.log(connectCounter);
+});
+
+app.set('socketio', io);
+
+// Routes
+require('./routes.js')(app, passport, check, validationResult, flash); // load our routes and pass in our app and fully configured passport

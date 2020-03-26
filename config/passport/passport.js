@@ -14,15 +14,15 @@ module.exports = passport => {
 
     // used to deserialize the user
     passport.deserializeUser((id, done) => {
-        pool.query(`SELECT userid FROM users WHERE userid = $1 LIMIT 1`, [id], (error, results) => {
+        pool.query(`SELECT userid, email FROM users WHERE userid = $1 LIMIT 1`, [id], (error, results) => {
             if (error) {
                 done(null, false, { message: 'Could not connect to database' });
             }
 
-            const userid = results.rows[0];
+            const user = results.rows[0];
 
-            if (userid != null) {
-                done(null, userid);
+            if (user != null) {
+                done(null, user);
             } else {
                 done(null, false, { message: 'Failed to find id' });
             }

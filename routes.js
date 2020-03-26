@@ -86,9 +86,20 @@ module.exports = function(app, passport, check, validationResult) {
     );
 
     app.get('/game', (req, res) => {
+        const io = req.app.get('socketio');
+
         if (req.isAuthenticated()) {
             res.render('game', {
                 is_authenticated: true,
+            });
+
+            io.on('connection', function(client) {
+                const { email } = req.user;
+                const username = email.substr(0, email.indexOf('@'));
+
+                client.on('join', function(data) {
+                    client.emit('messages', `${username} (${data.sessionid}) joined the game.`);
+                });
             });
         } else {
             res.redirect('/login');
