@@ -10,3 +10,4 @@ package-lock.json
 *.gz
 .env
 sessions
+active-players.json
