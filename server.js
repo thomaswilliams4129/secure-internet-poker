@@ -48,7 +48,7 @@ app.use((req, res, next) => {
 });
 
 // Start server
-const server = app.listen(3000, () => {
+const server = app.listen(process.env.PORT, () => {
     console.log('Listening on localhost:3000');
 });
 const io = require('socket.io')(server);
