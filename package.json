@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:server": "nodemon --ignore sessions/ server.js",
-    "heroku-postbuild": "ng build --configuration=production"
+    "build": "nodemon --ignore sessions/ server.js"
   },
   "keywords": [],
   "author": "",
