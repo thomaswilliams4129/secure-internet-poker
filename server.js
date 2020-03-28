@@ -53,17 +53,6 @@ const server = app.listen(3000, () => {
 });
 const io = require('socket.io')(server);
 
-let connectCounter = 0;
-
-io.on('connect', function() {
-    connectCounter++;
-    console.log(connectCounter);
-});
-io.on('disconnect', function() {
-    connectCounter--;
-    console.log(connectCounter);
-});
-
 app.set('socketio', io);
 
 // Routes

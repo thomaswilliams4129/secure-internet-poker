@@ -1,18 +1,40 @@
 <div>Successfully Authenticated and connected to web server! User: 01</div>
 
-<div id="game-update-box"></div>
+<div class="container">
+    <h2>Activity History</h2>
+    <div class="panel panel-default">
+        <div id="game-update-box"></div>
+    </div>
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
-
+    var userid = '{{ userid }}';
     var socket = io.connect('http://localhost:3000');
-    socket.on('connect', function (data) {
-        var sessionid = socket.id;
-        socket.emit('join', { sessionid });
+
+    var activePlayers = [];
+
+    socket.once('connect', function (data) {
+        socket.emit('register', sessionStorage.getItem('userid'));
+        sessionStorage.setItem('userid', userid);
     });
 
-    socket.on('messages', function (data) {
-        jQuery('#game-update-box').append(data + '<br>');
+    socket.once('joined', function (data) {
+        if (!activePlayers.includes(data)) {
+            activePlayers.push(data);
+        }
+        updateHistoryBox(activePlayers);
     });
+
+
+    function updateHistoryBox(activePlayers) {
+        activePlayers.forEach(function (player) {
+            jQuery('#game-update-box').append('<div class="alert alert-success" role="alert">' + player + ' joined the game</div>');
+
+        })
+
+    }
+
+
 </script>

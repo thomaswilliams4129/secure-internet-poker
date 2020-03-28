@@ -1,9 +1,9 @@
+const fs = require('fs');
+
 module.exports = function(app, passport, check, validationResult) {
     app.get('/', (req, res) => {
         if (req.isAuthenticated()) {
-            res.render('game', {
-                is_authenticated: true,
-            });
+            res.redirect('/game');
         } else {
             res.render('home', {
                 is_authenticated: false,
@@ -18,9 +18,7 @@ module.exports = function(app, passport, check, validationResult) {
 
     app.get('/signup', (req, res) => {
         if (req.isAuthenticated()) {
-            res.render('/game', {
-                is_authenticated: true,
-            });
+            res.redirect('game');
         } else {
             res.render('signup', {
                 is_authenticated: false,
@@ -65,9 +63,7 @@ module.exports = function(app, passport, check, validationResult) {
 
     app.get('/login', (req, res) => {
         if (req.isAuthenticated()) {
-            res.render('/game', {
-                is_authenticated: true,
-            });
+            res.redirect('/game');
         } else {
             res.render('login', {
                 is_authenticated: false,
@@ -91,18 +87,53 @@ module.exports = function(app, passport, check, validationResult) {
         if (req.isAuthenticated()) {
             res.render('game', {
                 is_authenticated: true,
+                userid: req.user.userid,
             });
 
-            io.on('connection', function(client) {
-                const { email } = req.user;
-                const username = email.substr(0, email.indexOf('@'));
+            io.sockets.on('connection', function(socket) {
+                let player;
+                const totalConnections = io.engine.clientsCount;
+                const { userid } = req.user;
+                let players;
 
-                client.on('join', function(data) {
-                    client.emit('messages', `${username} (${data.sessionid}) joined the game.`);
+                socket.on('register', function(userId) {
+                    if (userId !== null) {
+                        fs.readFile('active-players.json', (err, data) => {
+                            if (err) throw err;
+
+                            if (!isEmpty(data)) {
+                                players = data;
+                                if (!players.includes(userId)) {
+                                    players += `${userId},`;
+                                    fs.writeFile('active-players.json', players, err => {
+                                        if (err) throw err;
+                                    });
+                                }
+
+                                io.emit('joined', `${players}`);
+                            } else {
+                                console.log('here');
+                                fs.writeFile('active-players.json', `${userId},`, err => {
+                                    if (err) throw err;
+                                });
+                            }
+                        });
+                    }
+                });
+
+                socket.on('disconnect', function() {
+                    io.emit('left', `${user}`);
                 });
             });
         } else {
             res.redirect('/login');
         }
     });
+
+    function isEmpty(obj) {
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) return false;
+        }
+        return true;
+    }
 };
