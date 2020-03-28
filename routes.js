@@ -122,7 +122,7 @@ module.exports = function(app, passport, check, validationResult) {
                 });
 
                 socket.on('disconnect', function() {
-                    io.emit('left', `${user}`);
+                    io.emit('left', `${userId}`);
                 });
             });
         } else {
