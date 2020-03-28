@@ -109,7 +109,7 @@ module.exports = function(app, passport, check, validationResult) {
                                         if (err) throw err;
                                     });
                                 }
-
+                                console.log(players);
                                 io.emit('joined', `${players}`);
                             } else {
                                 console.log('here');
@@ -121,8 +121,8 @@ module.exports = function(app, passport, check, validationResult) {
                     }
                 });
 
-                socket.on('disconnect', function() {
-                    io.emit('left', `${user}`);
+                socket.on('disconnect', function(userId) {
+                    io.emit('left', `${userId}`);
                 });
             });
         } else {

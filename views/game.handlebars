@@ -29,10 +29,17 @@
 
 
     function updateHistoryBox(activePlayers) {
-        activePlayers.forEach(function (player) {
-            jQuery('#game-update-box').append('<div class="alert alert-success" role="alert">' + player + ' joined the game</div>');
+        activePlayers = activePlayers.toString();
 
-        })
+        console.log(activePlayers);
+        players = activePlayers.replace(/,\s*$/, "");
+        players = players.split(',');
+
+        players.forEach(function (player) {
+            jQuery('#game-update-box').append('<div class="alert alert-success" role="alert">' + player + ' joined the game</div>');
+        });
+
+
 
     }
 
