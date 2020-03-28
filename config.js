@@ -8,7 +8,7 @@ const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_P
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: isProduction,
+    ssl: false,
     connectionTimeoutMills: 100,
 });
 
