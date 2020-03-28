@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const cookieSettings = session({
     genid: req => crypto.randomBytes(16).toString('hex'), // Generate random session IDs
     store: new FileStore(), // This should save to the user DB table??
-    secret: process.env.SESSION_SECRET, // This should be a secret from an ENV variable
+    secret: 'lfdkasjlkfjsdklfjasdlk', // This should be a secret from an ENV variable
     resave: true,
     saveUninitialized: true,
     name: 'session',
