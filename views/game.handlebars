@@ -1,42 +1,72 @@
 <link rel="stylesheet" type="text/css" href="game.css">
-
-<div>Successfully Authenticated and connected to web server!!</div>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 <div class="container">
-    <h2>Activity History</h2>
-    <div class="panel panel-default">
-        <div id="game-update-box"></div>
+    {{!-- Activity Panel --}}
+    <div class="row justify-content-start update-panel">
+    <div class="col-4 text-center">
+        <h2>Activity History</h2>
+        <div class="panel panel-default">
+            <div id="game-update-box"></div>
+        </div>
+    </div>
     </div>
 
-    <div class="main">
-        <div class="table">
-            <div class="board">
-                <div class="card-small">
-                    <p class="card-text black">A</p>
-                    <p class="card-img black">&clubs;</p>
-                </div>
-                <div class="card-small">
-                    <p class="card-text black">10</p>
-                    <p class="card-img black">&spades;</p>
-                </div>
-                <div class="card-small">
-                    <p class="card-text red">K</p>
-                    <p class="card-img red">&hearts;</p>
-                </div>
-                <div class="card-small">
-                    <p class="card-text red">Q</p>
-                    <p class="card-img red">&diams;</p>
-                </div>
-                <div class="card-small">
-                    <p class="card-text red">2</p>
-                    <p class="card-img red">&diams;</p>
+    <div class="row justify-content-around users">
+        <div class="col-4" id="user-one">
+        
+        </div>
+        <div class="col-4" id="user-two">
+        
+        </div>
+    </div>
+
+    {{!-- Game Panel --}}
+    <div class="row justify-content-center game-panel">
+        <div class="col-8">
+            <div class="game">
+                <div class="table">
+                    <div class="board">
+                        <div class="card-small">
+                            <p class="card-text black">A</p>
+                            <p class="card-img black">&clubs;</p>
+                        </div>
+                        <div class="card-small">
+                            <p class="card-text black">10</p>
+                            <p class="card-img black">&spades;</p>
+                        </div>
+                        <div class="card-small">
+                            <p class="card-text red">K</p>
+                            <p class="card-img red">&hearts;</p>
+                        </div>
+                        <div class="card-small">
+                            <p class="card-text red">Q</p>
+                            <p class="card-img red">&diams;</p>
+                        </div>
+                        <div class="card-small">
+                            <p class="card-text red">2</p>
+                            <p class="card-img red">&diams;</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-
+    <div class="row justify-content-around users">
+        <div class="col-4" id="user-three">
+        
+        </div>
+        <div class="col-4" id="user-four">
+        
+        </div>
+    </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 <script src="/socket.io/socket.io.js"></script>
 
@@ -66,13 +96,11 @@
         players = activePlayers.replace(/,\s*$/, "");
         players = players.split(',');
 
+        
         players.forEach(function (player) {
             jQuery('#game-update-box').append('<div class="alert alert-success" role="alert">' + player + ' joined the game</div>');
+            jQuery('#user-one').append(player);
         });
-
-
-
     }
-
 
 </script>

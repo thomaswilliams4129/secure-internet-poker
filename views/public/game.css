@@ -1,50 +1,67 @@
-.main {
-    width: 1000px;
+.container {
+  margin: 25px 0 0px 25px !important;
+}
+
+.update-panel {
+  height: 400px;
+}
+
+.game-panel {
+  width: 2080px;
+}
+
+.users {
+  width: 2080px;
+}
+
+.game {
+    width: 900px;
+}
+  
+.table {
+  background-color: green;
+  height: 500px;
+  width: 80%;
+  border-radius: 50%;
+  margin: 0 auto;
+  border: 1em solid black;
+}
+  
+.board {
+  position: relative;
+  top: 40%;
+  left: 30%;
+}
+
+.card-small {
+  border: .2em solid black;
+  border-radius: 10%;
+  height: 100px;
+  width: 60px; /*70% of height*/
+  margin-right: 5px;
+  float: left;
+  background-color: white;
   }
   
-  .table {
-    background-color: green;
-    height: 500px;
-    width: 80%;
-    border-radius: 50%;
-    margin: 0 auto;
-    border: 1em solid black;
-  }
+.card-text {
+  margin: 0;
+  margin-top: 15%;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 0;
+}
   
-  .board {
-    position: relative;
-    top: 40%;
-    left: 30%;
-  }
-  .card-small {
-    border: .2em solid black;
-    border-radius: 10%;
-    height: 90px;
-    width: 56px; /*70% of height*/
-    margin-right: 5px;
-    float: left;
-    background-color: white;
-   }
+.card-img {
+  text-align: center;
+  margin: 0;
+  font-size: 2em;
+}
   
-  .card-text {
-    margin: 0;
-    margin-top: 15%;
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: bold;
-    padding: 0;
-  }
+.red {
+  color: red;
+}
   
-  .card-img {
-    text-align: center;
-    margin: 0;
-    font-size: 2em;
-  }
-  
-  .red {
-    color: red;
-  }
-  
-  .black {
-    color: black;
-  }
+.black {
+  color: black;
+}
